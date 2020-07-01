@@ -1,0 +1,190 @@
+﻿
+
+@model IEnumerable<WebFinal.Models.ViewBill>
+
+@{
+    ViewBag.Title = "ViewCategory";
+    Layout = "~/Views/Shared/_layoutViewUser.cshtml";
+}
+
+<style>
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+</style>
+
+<main>
+    <div class="container-fluid">
+
+        <h1 class="mt-4">Quản Lý Hóa Đơn</h1>
+        <div class="card-header">
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Hóa Đơn Đã Duyệt</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Hóa Đơn Chờ Duyệt</a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="card-body">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Ngày Đặt Hàng</th>
+                                    <th>Ngày Duyệt Đơn</th>
+                                    <th>Người Mua</th>
+                                    <th>Tổng Giá</th>
+                                    <th>Thao Tác</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Ngày Đặt Hàng</th>
+                                    <th>Ngày Duyệt Đơn</th>
+                                    <th>Người Mua</th>
+                                    <th>Tổng Giá</th>
+                                    <th>Thao Tác</th>
+                                </tr>
+                            </tfoot>
+
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    if (item.statusBill == true)
+                                    {
+                                        <tr class="text-center">
+                                            <td>@item.idBill</td>
+                                            <td>@item.dateCheckin</td>
+                                            <td>@item.datecheckout</td>
+
+                                            <td>@item.username</td>
+                                            <td>@item.sumPrice VNĐ</td>
+                                            <td>
+                                                <a class="btn btn-warning" onclick=PopupForm('@Url.Action("ViewModalBills","Bill",new { id=@item.idBill} )')>Xem</a>
+                                                <button class="btn btn-danger">Xóa</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Ngày Đặt Hàng</th>
+
+                                    <th>Người Mua</th>
+                                    <th>Tổng Giá</th>
+                                    <th>Thao Tác</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Ngày Đặt Hàng</th>
+
+                                    <th>Người Mua</th>
+                                    <th>Tổng Giá</th>
+                                    <th>Thao Tác</th>
+                                </tr>
+                            </tfoot>
+
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    if (item.statusBill == false)
+                                    {
+                                        <tr class="text-center">
+                                            <td>@item.idBill</td>
+                                            <td>@item.dateCheckin</td>
+
+
+                                            <td>@item.username</td>
+                                            <td>@item.sumPrice VNĐ</td>
+                                            <td>
+                                                <a href=@Url.Action("ComfirmBill","Bill",new { id=item.idBill }) class="btn btn-warning">Duyệt</a>
+                                                <a href=@Url.Action("DeleteBill","Bill",new { id=item.idBill}) class ="btn btn-danger">Xóa</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</main>
+
+
+@section scripts{
+
+    <script>
+
+       
+        var Popup;
+        function PopupForm(url) {
+
+            var formDiv = $('<div/>');
+
+            $.get(url)
+            .done(function (response) {
+                formDiv.html(response);
+
+                Popup = formDiv.dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    title: 'Chi Tiết Hóa Đơn',
+                    autoResize:true,
+                    height:'auto',
+                    width: 700,
+                    close: function () {
+                        Popup.dialog('destroy').remove();
+                    }
+
+                });
+            });
+
+        }
+
+
+      
+
+         function Delete(id) {
+            if(confirm('Bạn chắc chắn xóa chứ ?'))
+            {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Delete","User")/' + id,
+                    success: function (data) {
+                        alert("Xóa thành công.")
+                        location.reload();
+                    }
+
+                });
+            }
+        }
+    </script>
+
+}

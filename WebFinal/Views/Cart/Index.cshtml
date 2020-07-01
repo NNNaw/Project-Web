@@ -1,0 +1,104 @@
+﻿@using WebFinal.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+<div class="cart-index container">
+        <h2>Index</h2>
+        @{
+            Cart cart = (Cart)Session["cart"];
+            if (cart == null)
+            {
+                cart = new Cart();
+                Session["cart"] = cart;
+            }
+        }
+<table class="table">
+    <thead class="text-center">
+        <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Tên Sản Phẩm</th>
+            <th scope="col">Hình Ảnh</th>
+
+            <th scope="col">Giá Sản Phẩm</th>
+            <th scope="col">Số Lượng</th>
+            <th scope="col">Tổng Tiền</th>
+            <th scope="col">Thao Tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ int num = 1;}
+        @{ int SumList = 0;}
+        @foreach (var item in cart.getListCart().Values)
+        {
+            
+
+            int SumItem = item.getProduct().priceProduct.GetValueOrDefault() * item.getNumOrder();
+            <tr class="text-center">
+                <th scope="row">@num</th>
+                <td>@item.getProduct().nameProduct</td>
+                <td><img src=@Url.Content(item.getProduct().imageProduct) alt="@num" width="60" height="50" /></td>
+
+                <td>@item.getProduct().priceProduct VNĐ</td>
+                <td>
+                    <a href=@Url.Action("AddToCart", "Cart", new { @id = item.getProduct().idProduct, @quantum = -1 })  class = "btn btn-danger">-</a>
+                    @item.numOrder
+                    <a href=@Url.Action("AddToCart", "Cart", new { @id = item.getProduct().idProduct, @quantum = 1 }) class = "btn btn-danger">+</a>
+                </td>
+                <td>@SumItem</td>
+                <td>
+                    
+
+                        <a class="btn btn-danger" href=@Url.Action("DeleteItem","Cart" , new { id = item.getProduct().idProduct, returnUrl = Request.RawUrl })> Xóa</a>
+                  
+
+                </td>
+            </tr>
+            SumList += SumItem;
+            num++;
+        }
+
+    </tbody>
+
+    @if (cart.getListCart().Count > 0)
+    {
+        <tfoot>
+            <tr class="text-center">
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Thành Tiền : </th>
+                <th>@SumList VNĐ</th>
+                <th>
+                  
+                         <a class="btn btn-success" href=@Url.Action("Paying","Bill")>Thanh Toán</a>
+                    
+                </th>
+            </tr>
+
+        </tfoot>
+    }
+    else
+    {
+        <tfoot>
+            <tr class="text-center">
+
+                <th></th>
+                <th></th>
+                <th></th>
+                <th><h4>Bạn chưa chọn sản phẩm nào.....</h4></th>
+                <th></th>
+
+                <th></th>
+                <th></th>
+                <th></th>
+
+            </tr>
+
+        </tfoot>
+    }
+
+</table>
+    </div>

@@ -1,0 +1,129 @@
+﻿
+@model WebFinal.Models.DetailUser
+
+@{
+    ViewBag.Title = "InfoUser";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+<style>
+    .label-For-Upload_img {
+        cursor: grab;
+    }
+
+    label {
+        text-align: left;
+        font-weight: bold;
+        letter-spacing: .5px;
+        height: 16px;
+    }
+
+    .form-horizontal {
+        min-height: 700px;
+    }
+
+    a {
+        text-decoration: none;
+       
+    }
+
+        a:hover {
+            text-decoration: none;
+            
+        }
+</style>
+
+@using (Html.BeginForm("UpdateCustomer", "Customer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <div class="form-horizontal container-fluid py-5">
+        @Html.HiddenFor(model => model.idCustomer)
+        @Html.HiddenFor(model => model.username)
+        <div class="row">
+            <h2 class="col-12 text-center">Thông Tin Cá Nhân</h2>
+            <div class="col-6 text-center col-left">
+
+                <img id="id-avatar" src=@Url.Content(Model.imageCustomer) height="280" width="280" />
+                <div class="choose-file-avatar ">
+                    <label class="label-For-Upload_img" for="upload-photo"><i class="fa fa-wrench" aria-hidden="true"></i> Chỉnh Sửa </label>
+                    <input type="file" name="imgfile" id="upload-photo" placeholder="Chỉnh Sửa" value=@Url.Content(Model.imageCustomer) hidden />
+
+                    <h4>@ViewBag.error</h4>
+                </div>
+
+            </div>
+
+            <div class="col-6">
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">Email</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">Tên Hiển Thị</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.displayName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.displayName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">Mật Khẩu</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">Số Điện Thoại</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.phonenumber, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.phonenumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">Địa Chỉ</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.addressCustomer, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.addressCustomer, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Lưu" class="btn btn-primary" />
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+  
+}
+@*@section scripts
+        {
+
+        <script>
+            $(document).ready(function () {
+
+                $("#upload-photo").change(function () {
+                    var src = $("#upload-photo").val();
+                    $("#id-avatar").attr('src', src);
+
+                })
+            })
+
+
+        </script>
+    }*@

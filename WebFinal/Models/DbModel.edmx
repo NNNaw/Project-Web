@@ -1,0 +1,681 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EcommerceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_Account">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="displayName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="phonenumber" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="idTypeAccount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Admin">
+          <Key>
+            <PropertyRef Name="idAdmin" />
+          </Key>
+          <Property Name="idAdmin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Bill">
+          <Key>
+            <PropertyRef Name="idBill" />
+          </Key>
+          <Property Name="idBill" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dateCheckin" Type="date" />
+          <Property Name="datecheckout" Type="date" />
+          <Property Name="statusBill" Type="bit" />
+          <Property Name="sumPrice" Type="int" Nullable="false" />
+          <Property Name="idCustomer" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_BillDetails">
+          <Key>
+            <PropertyRef Name="idBill" />
+            <PropertyRef Name="idProduct" />
+          </Key>
+          <Property Name="idBill" Type="int" Nullable="false" />
+          <Property Name="idProduct" Type="int" Nullable="false" />
+          <Property Name="quanTum" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Category">
+          <Key>
+            <PropertyRef Name="idCate" />
+          </Key>
+          <Property Name="idCate" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nameCate" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="imageCate" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="quantumCate" Type="int" />
+          <Property Name="idAdmin" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_Customer">
+          <Key>
+            <PropertyRef Name="idCustomer" />
+          </Key>
+          <Property Name="idCustomer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="addressCustomer" Type="nvarchar" MaxLength="200" />
+          <Property Name="imageCustomer" Type="nvarchar(max)" />
+          <Property Name="username" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Product">
+          <Key>
+            <PropertyRef Name="idProduct" />
+          </Key>
+          <Property Name="idProduct" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nameProduct" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="imageProduct" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="desProduct" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="priceProduct" Type="int" />
+          <Property Name="rateProduct" Type="int" />
+          <Property Name="quantum" Type="int" />
+          <Property Name="status" Type="bit" />
+          <Property Name="idCate" Type="int" Nullable="false" />
+          <Property Name="idUser" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_TypeAccount">
+          <Key>
+            <PropertyRef Name="idTypeAccount" />
+          </Key>
+          <Property Name="idTypeAccount" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nameTypeAccount" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_User">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="addressUser" Type="nvarchar" MaxLength="200" />
+          <Property Name="avatarUser" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="coverImage" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="desUser" Type="nvarchar(max)" />
+          <Property Name="username" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tbl_Accou__idTyp__3C69FB99">
+          <End Role="tbl_TypeAccount" Type="Self.tbl_TypeAccount" Multiplicity="1" />
+          <End Role="tbl_Account" Type="Self.tbl_Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_TypeAccount">
+              <PropertyRef Name="idTypeAccount" />
+            </Principal>
+            <Dependent Role="tbl_Account">
+              <PropertyRef Name="idTypeAccount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Admin__usern__403A8C7D">
+          <End Role="tbl_Account" Type="Self.tbl_Account" Multiplicity="1" />
+          <End Role="tbl_Admin" Type="Self.tbl_Admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Account">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="tbl_Admin">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Bill__idCust__04E4BC85">
+          <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="1" />
+          <End Role="tbl_Bill" Type="Self.tbl_Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Customer">
+              <PropertyRef Name="idCustomer" />
+            </Principal>
+            <Dependent Role="tbl_Bill">
+              <PropertyRef Name="idCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_BillD__idBil__07C12930">
+          <End Role="tbl_Bill" Type="Self.tbl_Bill" Multiplicity="1" />
+          <End Role="tbl_BillDetails" Type="Self.tbl_BillDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Bill">
+              <PropertyRef Name="idBill" />
+            </Principal>
+            <Dependent Role="tbl_BillDetails">
+              <PropertyRef Name="idBill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_BillD__idPro__08B54D69">
+          <End Role="tbl_Product" Type="Self.tbl_Product" Multiplicity="1" />
+          <End Role="tbl_BillDetails" Type="Self.tbl_BillDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Product">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="tbl_BillDetails">
+              <PropertyRef Name="idProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Categ__idAdm__440B1D61">
+          <End Role="tbl_Admin" Type="Self.tbl_Admin" Multiplicity="0..1" />
+          <End Role="tbl_Category" Type="Self.tbl_Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Admin">
+              <PropertyRef Name="idAdmin" />
+            </Principal>
+            <Dependent Role="tbl_Category">
+              <PropertyRef Name="idAdmin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Custo__usern__5FB337D6">
+          <End Role="tbl_Account" Type="Self.tbl_Account" Multiplicity="1" />
+          <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Account">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="tbl_Customer">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Produ__idCat__4E88ABD4">
+          <End Role="tbl_Category" Type="Self.tbl_Category" Multiplicity="1" />
+          <End Role="tbl_Product" Type="Self.tbl_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Category">
+              <PropertyRef Name="idCate" />
+            </Principal>
+            <Dependent Role="tbl_Product">
+              <PropertyRef Name="idCate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Produ__idUse__4F7CD00D">
+          <End Role="tbl_User" Type="Self.tbl_User" Multiplicity="1" />
+          <End Role="tbl_Product" Type="Self.tbl_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="tbl_Product">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_User__userna__49C3F6B7">
+          <End Role="tbl_Account" Type="Self.tbl_Account" Multiplicity="1" />
+          <End Role="tbl_User" Type="Self.tbl_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Account">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="tbl_User">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EcommerceModelStoreContainer">
+          <EntitySet Name="tbl_Account" EntityType="Self.tbl_Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Admin" EntityType="Self.tbl_Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Bill" EntityType="Self.tbl_Bill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_BillDetails" EntityType="Self.tbl_BillDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Category" EntityType="Self.tbl_Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Customer" EntityType="Self.tbl_Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Product" EntityType="Self.tbl_Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_TypeAccount" EntityType="Self.tbl_TypeAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_User" EntityType="Self.tbl_User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tbl_Accou__idTyp__3C69FB99" Association="Self.FK__tbl_Accou__idTyp__3C69FB99">
+            <End Role="tbl_TypeAccount" EntitySet="tbl_TypeAccount" />
+            <End Role="tbl_Account" EntitySet="tbl_Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Admin__usern__403A8C7D" Association="Self.FK__tbl_Admin__usern__403A8C7D">
+            <End Role="tbl_Account" EntitySet="tbl_Account" />
+            <End Role="tbl_Admin" EntitySet="tbl_Admin" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Bill__idCust__04E4BC85" Association="Self.FK__tbl_Bill__idCust__04E4BC85">
+            <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+            <End Role="tbl_Bill" EntitySet="tbl_Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_BillD__idBil__07C12930" Association="Self.FK__tbl_BillD__idBil__07C12930">
+            <End Role="tbl_Bill" EntitySet="tbl_Bill" />
+            <End Role="tbl_BillDetails" EntitySet="tbl_BillDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_BillD__idPro__08B54D69" Association="Self.FK__tbl_BillD__idPro__08B54D69">
+            <End Role="tbl_Product" EntitySet="tbl_Product" />
+            <End Role="tbl_BillDetails" EntitySet="tbl_BillDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Categ__idAdm__440B1D61" Association="Self.FK__tbl_Categ__idAdm__440B1D61">
+            <End Role="tbl_Admin" EntitySet="tbl_Admin" />
+            <End Role="tbl_Category" EntitySet="tbl_Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Custo__usern__5FB337D6" Association="Self.FK__tbl_Custo__usern__5FB337D6">
+            <End Role="tbl_Account" EntitySet="tbl_Account" />
+            <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Produ__idCat__4E88ABD4" Association="Self.FK__tbl_Produ__idCat__4E88ABD4">
+            <End Role="tbl_Category" EntitySet="tbl_Category" />
+            <End Role="tbl_Product" EntitySet="tbl_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Produ__idUse__4F7CD00D" Association="Self.FK__tbl_Produ__idUse__4F7CD00D">
+            <End Role="tbl_User" EntitySet="tbl_User" />
+            <End Role="tbl_Product" EntitySet="tbl_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_User__userna__49C3F6B7" Association="Self.FK__tbl_User__userna__49C3F6B7">
+            <End Role="tbl_Account" EntitySet="tbl_Account" />
+            <End Role="tbl_User" EntitySet="tbl_User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EcommerceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_Account">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="displayName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phonenumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idTypeAccount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_TypeAccount" Relationship="Self.FK__tbl_Accou__idTyp__3C69FB99" FromRole="tbl_Account" ToRole="tbl_TypeAccount" />
+          <NavigationProperty Name="tbl_Admin" Relationship="Self.FK__tbl_Admin__usern__403A8C7D" FromRole="tbl_Account" ToRole="tbl_Admin" />
+          <NavigationProperty Name="tbl_Customer" Relationship="Self.FK__tbl_Custo__usern__5FB337D6" FromRole="tbl_Account" ToRole="tbl_Customer" />
+          <NavigationProperty Name="tbl_User" Relationship="Self.FK__tbl_User__userna__49C3F6B7" FromRole="tbl_Account" ToRole="tbl_User" />
+        </EntityType>
+        <EntityType Name="tbl_Admin">
+          <Key>
+            <PropertyRef Name="idAdmin" />
+          </Key>
+          <Property Name="idAdmin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_Account" Relationship="Self.FK__tbl_Admin__usern__403A8C7D" FromRole="tbl_Admin" ToRole="tbl_Account" />
+          <NavigationProperty Name="tbl_Category" Relationship="Self.FK__tbl_Categ__idAdm__440B1D61" FromRole="tbl_Admin" ToRole="tbl_Category" />
+        </EntityType>
+        <EntityType Name="tbl_Category">
+          <Key>
+            <PropertyRef Name="idCate" />
+          </Key>
+          <Property Name="idCate" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameCate" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="imageCate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="quantumCate" Type="Int32" />
+          <Property Name="idAdmin" Type="Int32" />
+          <NavigationProperty Name="tbl_Admin" Relationship="Self.FK__tbl_Categ__idAdm__440B1D61" FromRole="tbl_Category" ToRole="tbl_Admin" />
+          <NavigationProperty Name="tbl_Product" Relationship="Self.FK__tbl_Produ__idCat__4E88ABD4" FromRole="tbl_Category" ToRole="tbl_Product" />
+        </EntityType>
+        <EntityType Name="tbl_Customer">
+          <Key>
+            <PropertyRef Name="idCustomer" />
+          </Key>
+          <Property Name="idCustomer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="addressCustomer" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="imageCustomer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_Account" Relationship="Self.FK__tbl_Custo__usern__5FB337D6" FromRole="tbl_Customer" ToRole="tbl_Account" />
+          <NavigationProperty Name="tbl_Bill" Relationship="EcommerceModel.FK__tbl_Bill__idCust__04E4BC85" FromRole="tbl_Customer" ToRole="tbl_Bill" />
+        </EntityType>
+        <EntityType Name="tbl_Product">
+          <Key>
+            <PropertyRef Name="idProduct" />
+          </Key>
+          <Property Name="idProduct" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameProduct" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="imageProduct" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="desProduct" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="priceProduct" Type="Int32" />
+          <Property Name="rateProduct" Type="Int32" />
+          <Property Name="quantum" Type="Int32" />
+          <Property Name="status" Type="Boolean" />
+          <Property Name="idCate" Type="Int32" Nullable="false" />
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_Category" Relationship="Self.FK__tbl_Produ__idCat__4E88ABD4" FromRole="tbl_Product" ToRole="tbl_Category" />
+          <NavigationProperty Name="tbl_User" Relationship="Self.FK__tbl_Produ__idUse__4F7CD00D" FromRole="tbl_Product" ToRole="tbl_User" />
+          <NavigationProperty Name="tbl_BillDetails" Relationship="EcommerceModel.FK__tbl_BillD__idPro__08B54D69" FromRole="tbl_Product" ToRole="tbl_BillDetails" />
+        </EntityType>
+        <EntityType Name="tbl_TypeAccount">
+          <Key>
+            <PropertyRef Name="idTypeAccount" />
+          </Key>
+          <Property Name="idTypeAccount" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameTypeAccount" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_Account" Relationship="Self.FK__tbl_Accou__idTyp__3C69FB99" FromRole="tbl_TypeAccount" ToRole="tbl_Account" />
+        </EntityType>
+        <EntityType Name="tbl_User">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="addressUser" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="avatarUser" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="coverImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="desUser" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_Account" Relationship="Self.FK__tbl_User__userna__49C3F6B7" FromRole="tbl_User" ToRole="tbl_Account" />
+          <NavigationProperty Name="tbl_Product" Relationship="Self.FK__tbl_Produ__idUse__4F7CD00D" FromRole="tbl_User" ToRole="tbl_Product" />
+        </EntityType>
+        <Association Name="FK__tbl_Accou__idTyp__3C69FB99">
+          <End Role="tbl_TypeAccount" Type="Self.tbl_TypeAccount" Multiplicity="1" />
+          <End Role="tbl_Account" Type="Self.tbl_Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_TypeAccount">
+              <PropertyRef Name="idTypeAccount" />
+            </Principal>
+            <Dependent Role="tbl_Account">
+              <PropertyRef Name="idTypeAccount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Admin__usern__403A8C7D">
+          <End Role="tbl_Account" Type="Self.tbl_Account" Multiplicity="1" />
+          <End Role="tbl_Admin" Type="Self.tbl_Admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Account">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="tbl_Admin">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Custo__usern__5FB337D6">
+          <End Role="tbl_Account" Type="Self.tbl_Account" Multiplicity="1" />
+          <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Account">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="tbl_Customer">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_User__userna__49C3F6B7">
+          <End Role="tbl_Account" Type="Self.tbl_Account" Multiplicity="1" />
+          <End Role="tbl_User" Type="Self.tbl_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Account">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="tbl_User">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Categ__idAdm__440B1D61">
+          <End Role="tbl_Admin" Type="Self.tbl_Admin" Multiplicity="0..1" />
+          <End Role="tbl_Category" Type="Self.tbl_Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Admin">
+              <PropertyRef Name="idAdmin" />
+            </Principal>
+            <Dependent Role="tbl_Category">
+              <PropertyRef Name="idAdmin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Produ__idCat__4E88ABD4">
+          <End Role="tbl_Category" Type="Self.tbl_Category" Multiplicity="1" />
+          <End Role="tbl_Product" Type="Self.tbl_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Category">
+              <PropertyRef Name="idCate" />
+            </Principal>
+            <Dependent Role="tbl_Product">
+              <PropertyRef Name="idCate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Produ__idUse__4F7CD00D">
+          <End Role="tbl_User" Type="Self.tbl_User" Multiplicity="1" />
+          <End Role="tbl_Product" Type="Self.tbl_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="tbl_Product">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EcommerceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_Account" EntityType="Self.tbl_Account" />
+          <EntitySet Name="tbl_Admin" EntityType="Self.tbl_Admin" />
+          <EntitySet Name="tbl_Category" EntityType="Self.tbl_Category" />
+          <EntitySet Name="tbl_Customer" EntityType="Self.tbl_Customer" />
+          <EntitySet Name="tbl_Product" EntityType="Self.tbl_Product" />
+          <EntitySet Name="tbl_TypeAccount" EntityType="Self.tbl_TypeAccount" />
+          <EntitySet Name="tbl_User" EntityType="Self.tbl_User" />
+          <AssociationSet Name="FK__tbl_Accou__idTyp__3C69FB99" Association="Self.FK__tbl_Accou__idTyp__3C69FB99">
+            <End Role="tbl_TypeAccount" EntitySet="tbl_TypeAccount" />
+            <End Role="tbl_Account" EntitySet="tbl_Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Admin__usern__403A8C7D" Association="Self.FK__tbl_Admin__usern__403A8C7D">
+            <End Role="tbl_Account" EntitySet="tbl_Account" />
+            <End Role="tbl_Admin" EntitySet="tbl_Admin" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Custo__usern__5FB337D6" Association="Self.FK__tbl_Custo__usern__5FB337D6">
+            <End Role="tbl_Account" EntitySet="tbl_Account" />
+            <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_User__userna__49C3F6B7" Association="Self.FK__tbl_User__userna__49C3F6B7">
+            <End Role="tbl_Account" EntitySet="tbl_Account" />
+            <End Role="tbl_User" EntitySet="tbl_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Categ__idAdm__440B1D61" Association="Self.FK__tbl_Categ__idAdm__440B1D61">
+            <End Role="tbl_Admin" EntitySet="tbl_Admin" />
+            <End Role="tbl_Category" EntitySet="tbl_Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Produ__idCat__4E88ABD4" Association="Self.FK__tbl_Produ__idCat__4E88ABD4">
+            <End Role="tbl_Category" EntitySet="tbl_Category" />
+            <End Role="tbl_Product" EntitySet="tbl_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Produ__idUse__4F7CD00D" Association="Self.FK__tbl_Produ__idUse__4F7CD00D">
+            <End Role="tbl_User" EntitySet="tbl_User" />
+            <End Role="tbl_Product" EntitySet="tbl_Product" />
+          </AssociationSet>
+          <EntitySet Name="tbl_Bill" EntityType="EcommerceModel.tbl_Bill" />
+          <AssociationSet Name="FK__tbl_Bill__idCust__04E4BC85" Association="EcommerceModel.FK__tbl_Bill__idCust__04E4BC85">
+            <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+            <End Role="tbl_Bill" EntitySet="tbl_Bill" />
+          </AssociationSet>
+          <EntitySet Name="tbl_BillDetails" EntityType="EcommerceModel.tbl_BillDetails" />
+          <AssociationSet Name="FK__tbl_BillD__idBil__07C12930" Association="EcommerceModel.FK__tbl_BillD__idBil__07C12930">
+            <End Role="tbl_Bill" EntitySet="tbl_Bill" />
+            <End Role="tbl_BillDetails" EntitySet="tbl_BillDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_BillD__idPro__08B54D69" Association="EcommerceModel.FK__tbl_BillD__idPro__08B54D69">
+            <End Role="tbl_Product" EntitySet="tbl_Product" />
+            <End Role="tbl_BillDetails" EntitySet="tbl_BillDetails" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tbl_Bill">
+          <Key>
+            <PropertyRef Name="idBill" />
+          </Key>
+          <Property Name="idBill" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dateCheckin" Type="DateTime" Precision="0" />
+          <Property Name="datecheckout" Type="DateTime" Precision="0" />
+          <Property Name="statusBill" Type="Boolean" />
+          <Property Name="sumPrice" Type="Int32" Nullable="false" />
+          <Property Name="idCustomer" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_Customer" Relationship="EcommerceModel.FK__tbl_Bill__idCust__04E4BC85" FromRole="tbl_Bill" ToRole="tbl_Customer" />
+          <NavigationProperty Name="tbl_BillDetails" Relationship="EcommerceModel.FK__tbl_BillD__idBil__07C12930" FromRole="tbl_Bill" ToRole="tbl_BillDetails" />
+        </EntityType>
+        <Association Name="FK__tbl_Bill__idCust__04E4BC85">
+          <End Type="EcommerceModel.tbl_Customer" Role="tbl_Customer" Multiplicity="1" />
+          <End Type="EcommerceModel.tbl_Bill" Role="tbl_Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Customer">
+              <PropertyRef Name="idCustomer" />
+            </Principal>
+            <Dependent Role="tbl_Bill">
+              <PropertyRef Name="idCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tbl_BillDetails">
+          <Key>
+            <PropertyRef Name="idBill" />
+            <PropertyRef Name="idProduct" />
+          </Key>
+          <Property Name="idBill" Type="Int32" Nullable="false" />
+          <Property Name="idProduct" Type="Int32" Nullable="false" />
+          <Property Name="quanTum" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_Bill" Relationship="EcommerceModel.FK__tbl_BillD__idBil__07C12930" FromRole="tbl_BillDetails" ToRole="tbl_Bill" />
+          <NavigationProperty Name="tbl_Product" Relationship="EcommerceModel.FK__tbl_BillD__idPro__08B54D69" FromRole="tbl_BillDetails" ToRole="tbl_Product" />
+        </EntityType>
+        <Association Name="FK__tbl_BillD__idBil__07C12930">
+          <End Type="EcommerceModel.tbl_Bill" Role="tbl_Bill" Multiplicity="1" />
+          <End Type="EcommerceModel.tbl_BillDetails" Role="tbl_BillDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Bill">
+              <PropertyRef Name="idBill" />
+            </Principal>
+            <Dependent Role="tbl_BillDetails">
+              <PropertyRef Name="idBill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_BillD__idPro__08B54D69">
+          <End Type="EcommerceModel.tbl_Product" Role="tbl_Product" Multiplicity="1" />
+          <End Type="EcommerceModel.tbl_BillDetails" Role="tbl_BillDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Product">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="tbl_BillDetails">
+              <PropertyRef Name="idProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EcommerceModelStoreContainer" CdmEntityContainer="EcommerceEntities">
+          <EntitySetMapping Name="tbl_Account">
+            <EntityTypeMapping TypeName="EcommerceModel.tbl_Account">
+              <MappingFragment StoreEntitySet="tbl_Account">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="displayName" ColumnName="displayName" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phonenumber" ColumnName="phonenumber" />
+                <ScalarProperty Name="idTypeAccount" ColumnName="idTypeAccount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Admin">
+            <EntityTypeMapping TypeName="EcommerceModel.tbl_Admin">
+              <MappingFragment StoreEntitySet="tbl_Admin">
+                <ScalarProperty Name="idAdmin" ColumnName="idAdmin" />
+                <ScalarProperty Name="username" ColumnName="username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Category">
+            <EntityTypeMapping TypeName="EcommerceModel.tbl_Category">
+              <MappingFragment StoreEntitySet="tbl_Category">
+                <ScalarProperty Name="idCate" ColumnName="idCate" />
+                <ScalarProperty Name="nameCate" ColumnName="nameCate" />
+                <ScalarProperty Name="imageCate" ColumnName="imageCate" />
+                <ScalarProperty Name="quantumCate" ColumnName="quantumCate" />
+                <ScalarProperty Name="idAdmin" ColumnName="idAdmin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Customer">
+            <EntityTypeMapping TypeName="EcommerceModel.tbl_Customer">
+              <MappingFragment StoreEntitySet="tbl_Customer">
+                <ScalarProperty Name="idCustomer" ColumnName="idCustomer" />
+                <ScalarProperty Name="addressCustomer" ColumnName="addressCustomer" />
+                <ScalarProperty Name="imageCustomer" ColumnName="imageCustomer" />
+                <ScalarProperty Name="username" ColumnName="username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Product">
+            <EntityTypeMapping TypeName="EcommerceModel.tbl_Product">
+              <MappingFragment StoreEntitySet="tbl_Product">
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="nameProduct" ColumnName="nameProduct" />
+                <ScalarProperty Name="imageProduct" ColumnName="imageProduct" />
+                <ScalarProperty Name="desProduct" ColumnName="desProduct" />
+                <ScalarProperty Name="priceProduct" ColumnName="priceProduct" />
+                <ScalarProperty Name="rateProduct" ColumnName="rateProduct" />
+                <ScalarProperty Name="quantum" ColumnName="quantum" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="idCate" ColumnName="idCate" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_TypeAccount">
+            <EntityTypeMapping TypeName="EcommerceModel.tbl_TypeAccount">
+              <MappingFragment StoreEntitySet="tbl_TypeAccount">
+                <ScalarProperty Name="idTypeAccount" ColumnName="idTypeAccount" />
+                <ScalarProperty Name="nameTypeAccount" ColumnName="nameTypeAccount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_User">
+            <EntityTypeMapping TypeName="EcommerceModel.tbl_User">
+              <MappingFragment StoreEntitySet="tbl_User">
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="addressUser" ColumnName="addressUser" />
+                <ScalarProperty Name="avatarUser" ColumnName="avatarUser" />
+                <ScalarProperty Name="coverImage" ColumnName="coverImage" />
+                <ScalarProperty Name="desUser" ColumnName="desUser" />
+                <ScalarProperty Name="username" ColumnName="username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Bill">
+            <EntityTypeMapping TypeName="EcommerceModel.tbl_Bill">
+              <MappingFragment StoreEntitySet="tbl_Bill">
+                <ScalarProperty Name="idCustomer" ColumnName="idCustomer" />
+                <ScalarProperty Name="sumPrice" ColumnName="sumPrice" />
+                <ScalarProperty Name="statusBill" ColumnName="statusBill" />
+                <ScalarProperty Name="datecheckout" ColumnName="datecheckout" />
+                <ScalarProperty Name="dateCheckin" ColumnName="dateCheckin" />
+                <ScalarProperty Name="idBill" ColumnName="idBill" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_BillDetails">
+            <EntityTypeMapping TypeName="EcommerceModel.tbl_BillDetails">
+              <MappingFragment StoreEntitySet="tbl_BillDetails">
+                <ScalarProperty Name="quanTum" ColumnName="quanTum" />
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="idBill" ColumnName="idBill" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

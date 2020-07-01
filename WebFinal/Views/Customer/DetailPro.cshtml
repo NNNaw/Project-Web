@@ -1,0 +1,79 @@
+﻿
+@model WebFinal.Models.ViewProductDetail
+@{
+    ViewBag.Title = "DetailPro";
+
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+    var userInfo = HttpContext.Current.Session["USER_SESSION"] as WebFinal.Common.InfoUserLogin;
+}
+
+<style>
+    .detail-product {
+        padding: 50px 0;
+    }
+
+    label {
+        text-align: left;
+        font-weight: bold;
+        letter-spacing: .5px;
+        height: 16px;
+    }
+
+    .detail-product {
+    }
+
+    .info-pro {
+        padding-top: 25px;
+    }
+</style>
+
+<div class="detail-product container">
+
+    <div class="row">
+
+        <div class="col-6 text-center">
+            <h4><span>Shop > </span>@Model.displayName - <span>Mã loại > </span> @Model.idCate - <span>Mã Sản Phẩm > </span>  @Html.DisplayTextFor(model => model.idProduct)</h4>
+            <img src=@Url.Content(Model.imageProduct) />
+            <p>Đánh Giá : @Model.rateProduct || Đã Mua : </p>
+        </div>
+
+        <div class="col-6 info-pro">
+
+            <div class="col-md-10">
+                <label class="control-label col-4">Tên Sản Phẩm : </label>
+                <span>@Model.nameProduct</span>
+
+            </div>
+            <div class="col-md-10">
+                <label class="control-label col-4">Số Lượng Còn : </label>
+                <span>@Model.QuanTum</span>
+
+            </div>
+            <div class="col-md-10">
+                <label class="control-label col-4">Giá Sản Phẩm: </label>
+                <span>@Model.priceProduct</span>
+
+            </div>
+            <div class="col-md-10">
+                <label class="control-label col-4">Tình Trạng : </label>
+                @if (Model.status == true)
+                {
+                    <span class="text-success">Còn Hàng</span>
+                }
+                else
+                {
+                    <span class="text-danger">Hết Hàng</span>
+                }
+            </div>
+
+            <div class="col-md-10">
+               <a class="btn btn-warning" href=@Url.Action("AddToCart","Cart", new { @id = Model.idProduct, @quantum = 1 })>Thêm Vào Giỏ</a>
+
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,184 @@
+﻿
+
+@model IEnumerable<WebFinal.Models.ViewProductDetail>
+
+@{
+    ViewBag.Title = "ViewCategory";
+    Layout = "~/Views/Shared/_layoutViewUser.cshtml";
+}
+<style>
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    th{
+        text-align: center;
+        padding: 15px;
+    }
+</style>
+
+<main>
+    <div class="container-fluid">
+        <h1 class="mt-4">Quản Lý Sản Phẩm</h1>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <div>
+                    <i class="fas fa-table mr-1"></i>
+                    Danh Sách Người Dùng
+                </div>
+                <div>
+
+
+                    <a class='btn btn-primary btn-sm' onclick=PopupForm('@Url.Action("ModalViewProduct","User",new { id=0} )')>
+                        <i class="fa fa-plus" aria-hidden="true"></i> Thêm Sản phẩm
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Mã</th>
+                                <th>Tên Sản Phẩm</th>
+                                <th>Loại Sản Phẩm</th>
+                                <th>Hình Ảnh</th>
+                                <th>Giá Sản Phẩm</th>
+                                <th>Số Lượng</th>
+                                <th>Tình Trạng</th>
+                                <th>Thao Tác</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Mã</th>
+                                <th>Tên Sản Phẩm</th>
+                                <th>Loại Sản Phẩm</th>
+                                <th>Hình Ảnh</th>
+                                <th>Giá Sản Phẩm</th>
+                                <th>Số Lượng</th>
+                                <th>Tình Trạng</th>
+                                <th>Thao Tác</th>
+                            </tr>
+                        </tfoot>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="text-center">
+                                    <td>@item.idProduct</td>
+                                    <td>@item.nameProduct</td>
+                                    <td>@item.nameCate</td>
+                                    <td><img src=@Url.Content(item.imageProduct) width="60" height="50" /></td>
+                                    <td>@item.priceProduct VNĐ</td>
+                                    <td>@item.QuanTum</td>
+                                    @if (item.status == true)
+                                    {
+                                        <td class="text-success">Còn Hàng</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="text-danger">Hết Hàng</td>
+                                    }
+
+                                    <td>
+                                        <a class='btn btn-warning btn-sm' onclick=PopupForm('@Url.Action("ModalViewProduct","User",new { id=@item.idProduct} )')>
+                                            <i class="fas fa-pencil-alt"></i>
+                                            Sửa
+                                        </a>
+                                        <a class='btn btn-danger btn-sm' style='margin-left:5px' onclick=Delete(@item.idProduct)>
+                                            <i class='fa fa-trash'></i> Xóa
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+@*@{
+    if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+         alert(@Html.Raw(Json.Encode(TempData["message"])));
+        </script>
+    }
+}*@
+
+@section scripts{
+
+    <script>
+
+        var dataTable = $("#dataTable").dataTable();
+        var Popup;
+        function PopupForm(url) {
+
+            var formDiv = $('<div/>');
+
+            $.get(url)
+            .done(function (response) {
+                formDiv.html(response);
+
+                Popup = formDiv.dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    title: 'Thông Tin Sản Phẩm',
+                    autoResize:true,
+                    height:'auto',
+                    width: 550,
+                    close: function () {
+                        Popup.dialog('destroy').remove();
+                    }
+
+                });
+            });
+
+        }
+
+
+        function SubmitForm(form) {
+            $.validator.unobtrusive.parse(form);
+            if($(form).valid()){
+                $.ajax({
+                    type: "POST",
+                    url: form.url,
+                    data : $(form).serialize(),
+                    success: function () {
+                        alert("Thành Công")
+                         $.notify("Thành Công",{
+                                globalPosition :"top center",
+                                className : "success"
+                         })
+
+                        location.reload();
+                    }
+                });
+            }
+            return false;
+        }
+
+         function Delete(id) {
+            if(confirm('Bạn chắc chắn xóa chứ ?'))
+            {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Delete","User")/' + id,
+                    success: function (data) {
+                        alert("Xóa thành công.")
+                        location.reload();
+                    }
+
+                });
+            }
+        }
+    </script>
+
+}
+

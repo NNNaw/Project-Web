@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d3e5f241ef194daca77575ee4e1ab60a" Name="Diagram1">
+        <EntityTypeShape EntityType="EcommerceModel.tbl_Account" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceModel.tbl_Admin" Width="1.5" PointX="5.25" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceModel.tbl_Category" Width="1.5" PointX="7.5" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceModel.tbl_Customer" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceModel.tbl_Product" Width="1.5" PointX="9.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceModel.tbl_TypeAccount" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceModel.tbl_User" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
+        <AssociationConnector Association="EcommerceModel.FK__tbl_Accou__idTyp__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceModel.FK__tbl_Admin__usern__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceModel.FK__tbl_Custo__usern__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceModel.FK__tbl_User__userna__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceModel.FK__tbl_Categ__idAdm__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceModel.FK__tbl_Produ__idCat__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceModel.FK__tbl_Produ__idUse__4F7CD00D" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="EcommerceModel.tbl_Bill" Width="1.5" PointX="7.5" PointY="5.75" />
+        <AssociationConnector Association="EcommerceModel.FK__tbl_Bill__idCust__04E4BC85" />
+        <EntityTypeShape EntityType="EcommerceModel.tbl_BillDetails" Width="1.5" PointX="12" PointY="5.25" />
+        <AssociationConnector Association="EcommerceModel.FK__tbl_BillD__idBil__07C12930" />
+        <AssociationConnector Association="EcommerceModel.FK__tbl_BillD__idPro__08B54D69" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

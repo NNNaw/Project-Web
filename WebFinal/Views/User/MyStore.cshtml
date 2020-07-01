@@ -1,0 +1,92 @@
+﻿
+@using PagedList.Mvc
+@model PagedList.IPagedList<WebFinal.Models.tb_Category>
+
+
+
+
+@{
+    ViewBag.Title = "MyStore";
+    Layout = "~/Views/Shared/_layoutUser.cshtml";
+}
+
+<style>
+    .card {
+        max-width: 31%;
+        margin: 10px 7px;
+        padding: 0px;
+    }
+
+    .card-img-top {
+        height: 250px;
+    }
+
+    .card-title {
+        padding: 10px 0;
+    }
+
+    .footer-button {
+        justify-content: space-around;
+        margin: 10px 0px;
+    }
+
+    hr {
+        margin-bottom: 0px;
+    }
+
+    .blue-square-container {
+        text-align: center;
+    }
+
+    .blue-square {
+        display: inline-block;
+    }
+</style>
+<div class="container">
+
+    <h2>Danh Sách loại sản phẩm của @Session["nameUser"]</h2>
+
+    <div class="row m-0">
+
+
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+
+                <div class="col-4 card">
+                    <img src=@Url.Content(item.imageCate) class="card-img-top" alt=@item.idCate>
+                    <div class="body">
+                        <h5 class="card-title text-center">@item.nameCate</h5>
+                        <hr />
+                        <div class="footer-button d-flex">
+                            <button class="btn btn-primary">@Html.ActionLink("Chi Tiết", "DetailCate", "User", new { id = item.idCate }, null)</button>
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+        }
+
+
+
+    </div>
+
+    <div class="blue-square-container">
+        <div class="blue-square">
+            <div class="pagination">
+
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+

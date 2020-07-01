@@ -1,0 +1,53 @@
+﻿body {
+   
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+.nav-user {
+    width: 100%;
+    display: flex;
+   
+}
+.item1 {
+    width : 50%;
+
+}
+.item2 {
+    width: 30%;
+}
+.item3 {
+    width: 20%;
+    text-align: right;
+}
+.dropdown-menu{
+    width:60%;
+    left:40%;
+}
+.label-For-Upload_img {
+    cursor: pointer;
+    /* Style as you please, it will become the visible UI component. */
+}
+
+#upload-photo {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}

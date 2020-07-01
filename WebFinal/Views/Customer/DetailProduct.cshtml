@@ -1,0 +1,179 @@
+﻿@model WebFinal.Models.ViewProductDetail
+
+@{
+    ViewBag.Title = "DetailProduct";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+<h2>DetailProduct</h2>
+
+<div>
+    <h4>ViewProductDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.idProduct)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idProduct)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nameProduct)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nameProduct)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.imageProduct)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.imageProduct)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.desProduct)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.desProduct)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.statusPro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.statusPro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.priceProduct)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.priceProduct)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QuanTum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuanTum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.rateProduct)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rateProduct)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fk_idCate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fk_idCate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fk_idUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fk_idUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idCate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idCate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nameCate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nameCate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.displayName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.displayName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.imageUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.imageUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.phoneUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.phoneUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.coverimage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.coverimage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.desUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.desUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.addressUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.addressUser)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

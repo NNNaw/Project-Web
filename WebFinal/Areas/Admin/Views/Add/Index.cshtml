@@ -1,0 +1,140 @@
+﻿@model IEnumerable<WebFinal.Models.InforUserCustomer>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutViewAdmin.cshtml";
+}
+<style>
+    .card-header{
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+</style>
+<main>
+    <div class="container-fluid">
+        <h1 class="mt-4">Quản Lý Người Dùng</h1>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <div>
+                    <i class="fas fa-table mr-1"></i>
+                    Danh Sách Người Dùng
+                </div>
+                <div>
+                   
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Thêm Người Dùng
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Mã</th>
+                                <th>Tài Khoản</th>
+                                <th>Tên Hiển Thị</th>
+                                <th>Email</th>
+                                <th>Số Điện Thoại</th>
+                                <th>Địa Chỉ</th>
+                                <th>Loại Tài Khoản</th>
+                                <th>Thao Tác</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Mã</th>
+                                <th>Tài Khoản</th>
+                                <th>Tên Hiển Thị</th>
+                                <th>Email</th>
+                                <th>Số Điện Thoại</th>
+                                <th>Địa Chỉ</th>
+                                <th>Loại Tài Khoản</th>
+                                <th>Thao Tác</th>
+                            </tr>
+                        </tfoot>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="text-center">
+                                    <td>@item.id</td>
+                                    <td>@item.username</td>
+                                    <td>@item.displayName</td>
+
+                                    <td>@item.email</td>
+                                    <td>@item.phonenumer</td>
+                                    <td>@item.address</td>
+                                    @if (item.typeAccount == 2)
+                                    {
+                                        <td>Chủ Shop</td>
+                                    }
+                                    else
+                                    {
+                                        <td>Người Dùng</td>
+                                    }
+                                    <td>
+                                        <button class="btn btn-warning btn-alterPro"><i class="fa fa-cog" aria-hidden="true"></i> @Html.ActionLink("Sửa", "DetailPro", "User", new { id = item.id }, null)</button>
+                                        <button class="btn btn-danger btn-deletePro"><i class="fa fa-trash" aria-hidden="true"></i> @Html.ActionLink("Xóa", "DeleteUser", "Add", new { id = item.username }, null)</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Thêm Người Dùng</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @using (Html.BeginForm("Index", "Add", FormMethod.Post))
+                    {
+                        <div class="form-group">
+                            <label for="username">Tài Khoản</label>
+                            <input type="text" class="form-control" id="username" placeholder="Nhập tài khoản" name="username">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Mật Khẩu</label>
+                            <input type="password" class="form-control" id="password" placeholder="Mật khẩu " name="password">
+                        </div>
+                        <div class="form-group">
+                            <label for="displayname">Tên Hiển Thị</label>
+                            <input type="text" class="form-control" id="displayname" placeholder="Tên hiển thị" name="displayname">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="phonenumber">Số Điện Thoại</label>
+                            <input type="text" class="form-control" id="phonenumber" placeholder="Số điện thoại" name="phonenumber">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary">Thêm</button>
+                        </div>
+
+                    }
+
+
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</main>

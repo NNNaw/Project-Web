@@ -1,0 +1,119 @@
+﻿@model WebFinal.Models.tb_Admin
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+
+    <link rel="icon" type="image/png" href="~/Assets/TemplateSign/images/icons/favicon.ico" />
+    <link href="~/Assets/TemplateSign/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/TemplateSign/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/TemplateSign/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/TemplateSign/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/TemplateSign/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/TemplateSign/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/TemplateSign/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/TemplateSign/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/TemplateSign/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Assets/TemplateSign/css/main.css">
+
+</head>
+<body>
+    <div>
+
+        @*<div class="limiter">
+            <div class="container-login100">
+                <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
+                    @using (Html.BeginForm("Login", "Admin", FormMethod.Post))
+                    {
+                        <form class="login100-form validate-form">
+
+
+                            <h3 class="login100-form-title p-b-33">
+                                Đăng Nhập
+                            </h3>
+
+                            <div class="wrap-input100 validate-input" data-validate="Không để trống tài khoản">
+
+                                @Html.TextBoxFor(x => x.userName, new { @class = "form-control input100", @placeholder = "Tài Khoản" })
+                                @Html.ValidationMessageFor(x => x.userName)
+
+                            </div>
+
+                            <div class="wrap-input100 rs1 validate-input" data-validate="Yêu cầu nhập mật khẩu">
+
+                                @Html.PasswordFor(x => x.password, new { @class = "form-control input100", @placeholder = "Mật Khẩu" })
+                                @Html.ValidationMessageFor(x => x.password)
+
+                            </div>
+                            <div class="container-login100-form-btn m-t-20">
+                                <p style="color:red">@ViewBag.error</p>
+
+                            </div>
+                            <div class="container-login100-form-btn m-t-20">
+                                <input class="login100-form-btn" type="submit" value="Đăng Nhập" />
+                            </div>
+
+                            <div class="text-center p-t-45 p-b-4">
+                                <span class="txt1">
+                                    Quên
+                                </span>
+
+                                <a href="#" class="txt2 hov1">
+                                    Mật khẩu?
+                                </a>
+                            </div>
+
+                            <div class="text-center">
+                                <span class="txt1">
+                                    Đăng ký?
+                                </span>*@
+
+                                @*  @Html.ActionLink("Đăng Ký", "Register", "User")*@
+                            </div>
+
+
+                        </form>
+                    }
+                    @section Scripts {
+                        @Scripts.Render("~/bundles/jqueryval")
+                    }
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--===============================================================================================-->
+        <script src="~/Assets/TemplateSign/vendor/jquery/jquery-3.2.1.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="~/Assets/TemplateSign/vendor/animsition/js/animsition.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="~/Assets/TemplateSign/vendor/bootstrap/js/popper.js"></script>
+        <script src="~/Assets/TemplateSign/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="~/Assets/TemplateSign/vendor/select2/select2.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="~/Assets/TemplateSign/vendor/daterangepicker/moment.min.js"></script>
+        <script src="~/Assets/TemplateSign/vendor/daterangepicker/daterangepicker.js"></script>
+        <!--===============================================================================================-->
+        <script src="~/Assets/TemplateSign/vendor/countdowntime/countdowntime.js"></script>
+        <!--===============================================================================================-->
+        <script src="~/Assets/TemplateSign/js/main.js"></script>
+    </div>
+</body>
+</html>

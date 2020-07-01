@@ -1,0 +1,60 @@
+﻿@model WebFinal.Models.ViewBill
+
+@{
+    Layout = null;
+
+
+}
+<style>
+    .footer-modal {
+        display: flex;
+        justify-content: flex-end;
+        padding: 0px 10px;
+        margin-bottom: 5px;
+    }
+    
+</style>
+
+@using (Html.BeginForm("ViewModalBills", "User", FormMethod.Get))
+{
+    @Html.HiddenFor(model => model.idBill)
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Mã Đơn Hàng</th>
+                <th>Tên Sản Phẩm</th>
+                <th>Giá</th>
+                <th>Số Lượng</th>
+                <th>Tổng</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.idBill</td>
+                <td>@Model.nameProduct</td>
+                <td>@Model.priceProduct</td>
+                <td>@Model.quantum</td>
+                <td>@Model.totalPrice VNĐ</td>
+            </tr>
+           
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Thành Tiền</th>
+                <th><h4>@Model.sumPrice VNĐ</h4></th>
+            </tr>
+        </tfoot>
+
+    </table>
+
+    <div class="form-group row footer-modal">
+        <input type="submit" value="Đóng" class="btn btn-primary text-right" />
+    </div>
+}
+
